@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My TO-DO-LIST</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        .bg-col-low
+        {
+            background-color:rgb(28, 236, 28);
+            border-radius: 20px;
+        }
+        .header
+        {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            background-color: #116358;
+            align-items: center;
+            text-align: center;
+            color: azure;
+            font-size: 50px;
+            height: 100px;
+            font-style: bold;
+            font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+        }
+        .col-card
+        {
+         background-color: bisque;
+        }
+    
+        .bg-col-medium
+        {
+            background-color:#ffbf00;
+            border-radius: 20px;
+        }
+        .bg-col-high
+        {
+            background-color:#f11313;
+            border-radius: 20px;
+        }
+        .bform-size
+        {
+            height: 700px;
+            position:absolute;
+            width: 700px;
+            border-radius: 10px;
+            margin-left: -350px;
+            margin-top: 70px;
+
+        }
+        .footer
+        {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color:#116358;
+            text-align: center;
+            color: white;
+            font-size: larger;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+        }
+        .display-sec
+            {
+            position: relative;
+            margin-top: 70px;
+            margin-left: 500px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 18px;
+            border-radius: 10px;
+            
+            background-color:white;
+           
+        }
+        .display-sec-filter
+        {
+            position: absolute;
+            margin-top: 0px;
+            font-family: 'Courier New', Courier, monospace;
+            height: 20px;
+            width: 500px;
+            border-radius: 20px;
+            margin-left: 100px;
+            font-size: 20px;
+           
+        }
+        
+        
+    </style>
+</head>
+<body style="background-color:bisque">
+    <div class="header" >
+        
+            <h><b>My TO-DO LIST</b></h1>
+        </div>
+    </nav>
+    <div class="container"> 
+        <div class="row my-5 ">
+            <div class="col-md-4 ">
+                <div class="card bform-size ">
+                    <div class="card-body  "> 
+                        <form id="form-Task">
+                            <div class="form-group">
+                                <input type="text" id="title" class="form-control" maxlength="50" autocomplete="off" placeholder="Title" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea type="text" cols="50" rows="15" id="description" class="form-control"  autocomplete="off" placeholder="Description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Priority</label>
+                                <select class="form-control" id="priority" required>
+                                    <option ><b>Low</b></option>
+                                    <option ><b>Medium</b></option>
+                                    <option ><b>High</b></option>
+                                </select>
+
+                            </div>
+                            <button type="submit"  class="btn btn-success btn-block" style="width: 60px;" >Save</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 display-sec">
+                <div class="row">
+                    <div class="col-sm-3 text-left">
+                        <p class="font-weight-bold">Title</p>
+                    </div>
+                    <div class="col-sm-3 text-left">
+                        <p class="font-weight-bold">Description</p>
+                    </div>
+                    <div class="col-sm-3 text-left">
+                        <p class="font-weight-bold">Priority</p>
+                    </div>
+                    <div class="col-sm-3 text-right">
+                        <p class="font-weight-bold">Delete</p>
+                    </div>
+                </div>
+                    
+                <hr>
+                <div id="tasks"></div>
+                <div class=" col-md-8 display-sec-filter" >
+                    <select id="priority-sort" style="position: absolute;margin-left: 100px;margin-top: 35px;border-radius: 20px;font-family: 'Times New Roman', Times, serif; text-align: center;" >
+                        <option value="None">None</option>
+                        <option value="Low" >Low</option>
+                        <option value="Medium" >Medium</option>
+                        <option value="High" >High</option>
+                    </select>
+                   <select id="hight-to-low" style="position: absolute;margin-left: 250px;margin-top: 35px;border-radius: 20px;font-family: 'Times New Roman', Times, serif; text-align: center;width: fit-content;">
+                        <option value="None">None</option>
+                        <option value="Low">Low to high</option>
+                        <option value="High">High to low</option>
+                    </select>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <h2 >Designed by Lakshmi Tulasi Chittela</h2>
+    <marquee direction="right"><span>&#128241</span> 7780652863<br></marquee>
+    <i class="glyphicon glyphicon-envelope"></i>
+</div>
+
+
+<script>
+    document.getElementById('form-Task').addEventListener('submit',saveTask);
+var selection = document.getElementById('priority-sort');
+selection.addEventListener("click", function() {
+     options = selection.options[selection.selectedIndex].value;
+     console.log(options)
+    getTasks(options)
+});
+//For Priority Dropdwon 
+var sort=document.getElementById('hight-to-low');
+sort.addEventListener("click", function() {
+    sortoptions = sort.options[sort.selectedIndex].value;
+    console.log(sortoptions)
+    let tasks=JSON.parse(localStorage.getItem('tasks'));
+    let tasksView=document.getElementById('tasks');
+    tasksView.innerHTML='';
+    if(sortoptions==='Low'){
+        order=['Low','Medium','High']
+
+    }
+    else{
+        order=['High','Medium','Low']
+    }
+    if(sortoptions!='None')
+    {
+        for(let j=0;j<=2;j++){
+
+            for(let i = 0;i < tasks.length;i++)
+            {
+                let title = tasks[i].title;
+                let description=tasks[i].description;
+                let priority=tasks[i].priority;
+            if(order[j]==priority){
+            
+            if(priority==="Low")
+            {
+            tasksView.innerHTML +=
+            `<div class="card mb-3 col-card"  >
+                <div class ="card-body ">
+                    <div class="row bg-col-low " >
+                        <div class="col-sm-3 text-left  ">
+                            <p>${title}</p>
+                        </div>
+                        <div class="col-sm-3 text-left ">
+                            <p>${description}</p>
+                        </div>
+                        <div class="col-sm-3 text-left" id="priority">
+                            <p >${priority}</p>
+                        </div>
+                        
+                        <div class="col-sm-3 text-right">
+                            <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            }
+            if(priority==="Medium")
+            {
+            tasksView.innerHTML +=
+            `<div class="card mb-3 col-card" >
+                <div class ="card-body">
+                    <div class="row bg-col-medium" >
+                        <div class="col-sm-3 text-left ">
+                            <p>${title}</p>
+                        </div>
+                        <div class="col-sm-3 text-left ">
+                            <p>${description}</p>
+                        </div>
+                        <div class="col-sm-3 text-left" id="priority">
+                            <p >${priority}</p>
+                        </div>
+                        
+                        <div class="col-sm-3 text-right">
+                            <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            }
+            if(priority==="High")
+            {
+            tasksView.innerHTML +=
+            `<div class="card mb-3 col-card" >
+                <div class ="card-body">
+                    <div class="row bg-col-high" >
+                        <div class="col-sm-3 text-left ">
+                            <p>${title}</p>
+                        </div>
+                        <div class="col-sm-3 text-left ">
+                            <p>${description}</p>
+                        </div>
+                        <div class="col-sm-3 text-left" id="priority">
+                            <p >${priority}</p>
+                        </div>
+                        
+                        <div class="col-sm-3 text-right">
+                            <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            }
+                
+            }
+        }
+        }
+    }
+    else{
+        getTasks("None")
+    }
+});
+
+//to save new to do
+function saveTask(e)
+{
+    let title = document.getElementById('title').value;
+    let description = document.getElementById('description').value;
+    let priority=document.getElementById('priority').value;
+
+    let task={
+        title,
+        description,
+        priority
+    };
+
+    if(localStorage.getItem('tasks')===null){
+        let tasks=[];
+        tasks.push(task);
+        localStorage.setItem('tasks',JSON.stringify(tasks));
+
+    }
+    else{
+        let tasks=JSON.parse(localStorage.getItem('tasks'));
+        tasks.push(task);
+        localStorage.setItem('tasks',JSON.stringify(tasks));
+    }
+    getTasks('None');
+    //Reset form-Task
+    document.getElementById('form-Task').reset();
+    e.preventDefault();
+}
+//to delete to do
+function deleteTask(title){
+
+    let tasks = JSON.parse(localStorage.getItem('tasks'));
+    for(let i = 0;i < tasks.length;i++){
+        if(tasks[i].title==title)
+        {
+            tasks.splice(i,1);
+        }
+    }
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+    getTasks(options);
+
+}
+
+//To show To-Do List
+function getTasks(options)
+{
+   let tasks=JSON.parse(localStorage.getItem('tasks'));
+   let tasksView=document.getElementById('tasks');
+   tasksView.innerHTML='';
+
+   for(let i = 0;i < tasks.length;i++)
+   {
+       let title = tasks[i].title;
+       let description=tasks[i].description;
+       let priority=tasks[i].priority;
+       
+    if(options!='None'){
+        if(options==priority)
+        {
+            
+
+            if(priority==="Low")
+            {
+              
+            tasksView.innerHTML +=
+            `<div class="card mb-3 col-card" >
+                <div class ="card-body">
+                    <div class="row bg-col-low" >
+                        <div class="col-sm-3 text-left ">
+                            <p>${title}</p>
+                        </div>
+                        <div class="col-sm-3 text-left ">
+                            <p>${description}</p>
+                        </div>
+                        <div class="col-sm-3 text-left" id="priority">
+                            <p >${priority}</p>
+                        </div>
+                        
+                        <div class="col-sm-3 text-right">
+                            <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            }
+            if(priority==="Medium")
+            {
+            tasksView.innerHTML +=
+            `<div class="card mb-3 col-card" >
+                <div class ="card-body">
+                    <div class="row bg-col-medium" >
+                        <div class="col-sm-3 text-left ">
+                            <p>${title}</p>
+                        </div>
+                        <div class="col-sm-3 text-left ">
+                            <p>${description}</p>
+                        </div>
+                        <div class="col-sm-3 text-left" id="priority">
+                            <p >${priority}</p>
+                        </div>
+                        
+                        <div class="col-sm-3 text-right">
+                            <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            }
+            if(priority==="High")
+            {
+            tasksView.innerHTML +=
+            `<div class="card mb-3 col-card" >
+                <div class ="card-body">
+                    <div class="row bg-col-high" >
+                        <div class="col-sm-3 text-left ">
+                            <p>${title}</p>
+                        </div>
+                        <div class="col-sm-3 text-left ">
+                            <p>${description}</p>
+                        </div>
+                        <div class="col-sm-3 text-left" id="priority">
+                            <p >${priority}</p>
+                        </div>
+                        
+                        <div class="col-sm-3 text-right">
+                            <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            }
+            
+        }
+    }
+    else{
+        if(priority==="Low")
+            {
+            tasksView.innerHTML +=
+            `<div class="card mb-3 col-card" >
+                <div class ="card-body">
+                    <div class="row bg-col-low" >
+                        <div class="col-sm-3 text-left ">
+                            <p>${title}</p>
+                        </div>
+                        <div class="col-sm-3 text-left ">
+                            <p>${description}</p>
+                        </div>
+                        <div class="col-sm-3 text-left" id="priority">
+                            <p >${priority}</p>
+                        </div>
+                        
+                        <div class="col-sm-3 text-right">
+                            <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            }
+            if(priority==="Medium")
+            {
+            tasksView.innerHTML +=
+            `<div class="card mb-3 col-card" >
+                <div class ="card-body">
+                    <div class="row bg-col-medium" >
+                        <div class="col-sm-3 text-left ">
+                            <p>${title}</p>
+                        </div>
+                        <div class="col-sm-3 text-left ">
+                            <p>${description}</p>
+                        </div>
+                        <div class="col-sm-3 text-left" id="priority">
+                            <p >${priority}</p>
+                        </div>
+                        
+                        <div class="col-sm-3 text-right">
+                            <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            }
+            if(priority==="High")
+            {
+            tasksView.innerHTML +=
+            `<div class="card mb-3 col-card">
+                <div class ="card-body">
+                    <div class="row bg-col-high" >
+                        <div class="col-sm-3 text-left ">
+                            <p>${title}</p>
+                        </div>
+                        <div class="col-sm-3 text-left ">
+                            <p>${description}</p>
+                        </div>
+                        <div class="col-sm-3 text-left" id="priority">
+                            <p >${priority}</p>
+                        </div>
+                        
+                        <div class="col-sm-3 text-right">
+                            <a href="#" onclick="deleteTask('${title}')" class="btn btn-danger ml-5"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+            }
+            
+    }
+       
+   }
+}
+getTasks();
+</script>
+</body>
+</html>
